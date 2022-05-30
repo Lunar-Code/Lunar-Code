@@ -11,7 +11,8 @@ Just download the pre-compiled binaries or run from source
 ![image](https://user-images.githubusercontent.com/95881676/168418891-72a3222c-1a04-4569-92a4-6e0a3f62b480.png)
 
 
-* code auto complete
+* code auto complete(done)
+![image](https://user-images.githubusercontent.com/95881676/171043561-67dc5d52-08ed-47cc-9918-e0a71dfc94df.png)
 
 * Plugin's support
 
