@@ -23,7 +23,7 @@ from tkHyperLinkManager import HyperlinkManager
 from functools import partial
 import webbrowser
 from suggestion import Suggestion
-DATASET = "Lunar-Code\pyauto.txt"
+DATASET = "pyauto.txt"
 app=Tk()
 app.title("Lunar Code")
 app.geometry("1000x600")
