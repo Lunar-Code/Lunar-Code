@@ -246,7 +246,7 @@ def ppi():
 other_menu.add_command(label="PPI",command=ppi)
      
 cdg = ic.ColorDelegator()
-cdg.prog = re.compile(r'\b(?P<MYGROUP>__main__)\b|' + ic.make_pat().pattern, re.S)
+cdg.prog = re.compile(r'\b(?P<MYGROUP>tkinter)\b|' + ic.make_pat().pattern, re.S)
 cdg.idprog = re.compile(r'\s+(\w+)', re.S)
 
 cdg.tagdefs['MYGROUP'] = {'foreground': 'blue', 'background': 'transparent'}
