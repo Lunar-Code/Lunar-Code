@@ -18,7 +18,7 @@ my_label = HTMLLabel(root, html= """
 	<div>
 		<p>Lunar code</p>
 	</div>
-	<h3>V1.0.0<br/>
+	<h3>V1.1.0<br/>
     Made with Tkinter
     </h3>
  
