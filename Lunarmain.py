@@ -2,48 +2,51 @@ def startup():
     print('''
           |-----------------------------------------------|\n
             Starting Lunar-Code Loading...\n
-            V1.0.0 \n
+            V1.1.0 \n
             Starting System Checks\n
             Done
           ''')
 startup()
-from cgitb import html
-import tkinter.font as tkfont
-from tkinter import *
-from tkinter import ttk
-from tkinter.filedialog import asksaveasfilename, askopenfilename, test
-from tkinter.messagebox import showerror, showinfo, showwarning
-from tkinter.scrolledtext import ScrolledText
-import idlelib.colorizer as ic
-import idlelib.percolator as ip
-from tkhtmlview import *
 import platform
 import re
-from tkHyperLinkManager import HyperlinkManager
-from functools import partial
+import tkinter.font as tkfont
 import webbrowser
+from functools import partial
+from tkinter import *
+from tkinter import ttk
+from tkinter.filedialog import askopenfilename, asksaveasfilename, test
+from tkinter.font import Font
+from tkinter.messagebox import showerror, showinfo, showwarning
+from tkinter.scrolledtext import ScrolledText
+
+import idlelib.colorizer as ic
+import idlelib.percolator as ip
 from suggestion import Suggestion
+from tkhtmlview import *
+
+from minimap import TextPeer
+from tkHyperLinkManager import HyperlinkManager
+
 DATASET = "pyauto.txt"
 app=Tk()
 app.title("Lunar Code")
-app.geometry("1000x600")
-app.iconbitmap("images/icon.ico")
+app.geometry("1100x650")
+app.iconbitmap("icon.ico")
 #generate splashscreen
-splash_label = Label(app,text="Lunar Code V1.0.0",font=16,foreground="black")
+splash_label = Label(app,text="Lunar Code V1.1.0",font=16,foreground="black")
 splash_label.pack()
 def main(): 
     # destroy splash window
     splash_label.destroy()
 app.after(2200,main)
 #----------------------
-editor = ScrolledText(app,wrap=None)
-editor.pack(fill=BOTH, expand=1)
+editor = Text(app,wrap = None,undo = True)
 editor.focus()
 editor.config(fg="#F8F8F2",bg="#272822",insertbackground='grey')
 editor.config(font=("Tahoma 14"))
 hyperlink= HyperlinkManager(editor)
 editor.insert(END,
-"#Github Lunar-Code -V1.0.0",hyperlink.add(partial(webbrowser.open,"https://github.com/superpythonguy/Lunar-Code")))
+"#Github Lunar-Code -V1.1.0",hyperlink.add(partial(webbrowser.open,"https://github.com/Lunar-Code/Lunar-Code")))
 def pyversion():
     python = (platform.python_version())
     showinfo(r"Python Version",python)
@@ -69,13 +72,13 @@ menu.add_cascade(label ="Theme", menu=theme_menu)
 menu.add_cascade(label="Other",menu=other_menu)
 menu.add_cascade(label="Languages",menu=test_menu)
 test_menu.add_cascade(label="Languages",menu=cl_menu)
+test_menu.add_command(label="undo",command=editor.edit_undo)
 cl_menu.add_command(label="Javascript")
 cl_menu.add_command(label="HTML",command=htmlm)
 #######
-
 # function to open files
 def open_file(event=None):
-    global code, file_path
+    global code, file_path,open_path
     #code = editor.get(1.0, END)
     open_path = askopenfilename(filetypes=[("", "*")])
     file_path = open_path
@@ -83,6 +86,7 @@ def open_file(event=None):
         code = file.read()
         editor.delete(1.0, END)
         editor.insert(1.0, code)
+        app.title("Editing " + open_path)
 app.bind("<Control-o>", open_file)
 ######################################
 # function to save files
@@ -180,7 +184,7 @@ def hide_statusbar():
         
 view_menu.add_checkbutton(label = "Status Bar" , onvalue = True, offvalue = 0,variable = show_status_bar , command = hide_statusbar)
 # create a label for status bar
-status_bars = ttk.Label(app,text = f"https://github.com/superpythonguy/Lunar-code \tV1.0.0\t characters: 0 words: 0")
+status_bars = ttk.Label(app,text = f"https://github.com/Lunar-Code/Lunar-Code \tV1.1.0\t characters: 0 words: 0")
 status_bars.pack(side = BOTTOM)
 # function to display count and word characters
 text_change = False
@@ -190,7 +194,7 @@ def change_word(event = None):
         text_change = True
         word = len(editor.get(1.0, "end-1c").split())
         chararcter = len(editor.get(1.0, "end-1c").replace(" ",""))
-        status_bars.config(text = f"https://github.com/superpythonguy/Lunar-code \tV1.0.0\t characters: {chararcter} words: {word}")
+        status_bars.config(text = f"https://github.com/Lunar-Code/Lunar-Code \tV1.1.0\t characters: {chararcter} words: {word}")
     editor.edit_modified(False)
 # define function to cut 
 # the selected text
@@ -259,5 +263,26 @@ cdg.tagdefs['DEFINITION'] = {'foreground': '#E0D81B', 'background': 'transparent
 ip.Percolator(editor).insertfilter(cdg)
 suggestion = Suggestion(editor, dataset=DATASET)
 
+map_font = Font(family="Courier", size=3)
+minimap = TextPeer(editor, font=map_font, state="disabled",
+                   background="#272822", foreground="white")
+minimap.pack(side="right", fill="y")
+editor.pack(side="left", fill="both", expand=True)
+
 if __name__ == "__main__":
+    import time
+
+    from pypresence import Presence
+
+    client_id = "975823272182677554"  # Enter your Application ID here.
+    RPC = Presence(client_id=client_id)
+    RPC.connect()
+
+    # Make sure you are using the same name that you used when uploading the image
+    RPC.update(large_image="moon", large_text="Lunar Code is a code editor made in python!",
+            small_image="python2", small_text="Python editor",
+            state="Editing...",
+            details="Download Lunar-Code Now")
     app.mainloop()
+    while 1:
+        time.sleep(15) #Can only update presence every 15 seconds
