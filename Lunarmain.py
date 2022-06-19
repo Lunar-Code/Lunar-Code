@@ -19,6 +19,7 @@ from tkinter.font import Font
 from tkinter.messagebox import showerror, showinfo, showwarning
 from tkinter.scrolledtext import ScrolledText
 
+import customtkinter
 import idlelib.colorizer as ic
 import idlelib.percolator as ip
 from suggestion import Suggestion
@@ -28,10 +29,11 @@ from minimap import TextPeer
 from tkHyperLinkManager import HyperlinkManager
 
 DATASET = "pyauto.txt"
-app=Tk()
+app = customtkinter.CTk()
 app.title("Lunar Code")
 app.geometry("1100x650")
-app.iconbitmap("icon.ico")
+app.iconbitmap("images/icon.ico")
+customtkinter.set_appearance_mode("dark")
 #generate splashscreen
 splash_label = Label(app,text="Lunar Code V1.1.0",font=16,foreground="black")
 splash_label.pack()
