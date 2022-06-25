@@ -21,11 +21,16 @@ my_label = HTMLLabel(root, html= """
 	<h3>V1.1.0<br/>
     Made with Tkinter
     </h3>
+    <h1>Roadmap:</h1>
+    <li>Git powered<br/>
+    better color scheme<br/>
+    better extension compatiblity
+    </li>
  
     """)
 
 # Adjust label
-my_label.pack(pady=20, padx=20)
+my_label.pack(pady=20, padx=20,fill=BOTH,expand=1)
 
 # Execute Tkinter
 root.mainloop()
