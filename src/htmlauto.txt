@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html></html>
+<head></head>
+<title></title>
+<header></header>
+<body></body>
+<p></p>
+<div></div>
+<script></script>
+<style></style>
